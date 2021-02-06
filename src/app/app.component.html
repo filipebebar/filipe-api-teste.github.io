@@ -1,0 +1,189 @@
+<div class="template-cadastro-pessoa">
+  <div class="container">
+    <nav class="navbar navbar-dark bg-info">
+      <h2>Teste de Programação</h2>
+    </nav>
+
+    <div class="card">
+      <div class="row">
+        <div class="formulario col-md-5">
+          <div class="card-header">
+            <h5>Pessoa</h5>
+          </div>
+          <form>
+            <div class="card-body">
+              <div>
+                <label>Nome</label>
+                <input type="text"
+                       required="true"
+                       name="nome"
+                       id="nome"
+                       class="form-control"
+                       [maxLength]="50"
+                       [(ngModel)]="pessoa.nome"/>
+              </div>
+              <div>
+                <label>CPF</label>
+                <input type="text"
+                       required="true"
+                       name="cpf"
+                       id="cpf"
+                       class="form-control"
+                       mask="000.000.000-00"
+                       minlength="14"
+                       maxlength="14"
+                       [(ngModel)]="pessoa.cpf"/>
+              </div>
+              <div>
+                <label>Data de Nascimento</label>
+                <input
+                  type="date"
+                  required="true"
+                  name="dataNascimento"
+                  id="dataNascimento"
+                  class="form-control"
+                  [(ngModel)]="pessoa.dataNascimento"
+                  [maxLength]="10"/>
+              </div>
+              <div class="row" style="margin-top: 5%">
+                <div class="btn-group btn col-form-label-sm">
+                  <button type="button" class="btn btn-outline-secondary" (click)="addContato()">Adicionar contato
+                  </button>
+                </div>
+                <div class="btn-group btn col-form-label-sm" *ngIf="editingContato">
+                  <button type="button" class="btn btn-outline-secondary" (click)="cancelarEdicao()">Cancelar</button>
+                </div>
+              </div>
+
+            </div>
+            <div class="btn-group btn">
+              <button type="button" class="btn btn-primary" (click)="salvar()" [disabled]="!contatoList">Salvar</button>
+            </div>
+          </form>
+
+          <!--          contatos-->
+        </div>
+        <div class="formulario-contatos col-md-5" *ngIf="showAddContato">
+          <div class="card-header">
+            <h5>Contato</h5>
+          </div>
+          <form>
+            <div class="card-body">
+              <div>
+                <label>Nome</label>
+                <input type="text"
+                       required
+                       name="contato_nome"
+                       id="contato_nome"
+                       class="form-control"
+                       [maxLength]="50"
+                       [(ngModel)]="contato.nome"/>
+              </div>
+              <div>
+                <label>Telefone</label>
+                <input type="text"
+                       required
+                       name="contato_telefone"
+                       id="contato_telefone"
+                       class="form-control"
+                       mask="(00) 0000-00009"
+                       [maxLength]="14"
+                       [(ngModel)]="contato.telefone"/>
+              </div>
+              <div>
+                <label>Email</label>
+                <input
+                  type="email"
+                  required
+                  name="contato_email"
+                  id="contato_email"
+                  class="form-control"
+                  [(ngModel)]="contato.email"
+                  [maxLength]="50"
+                  (ngModelChange)="validateEmail(contato.email)"/>
+              </div>
+              <div class="btn-group btn">
+                <button type="button" class="btn btn-primary" (click)="salvarContato()">Add</button>
+              </div>
+              <div class="btn-group btn">
+                <button type="button" class="btn btn-secondary" (click)="cancelarAddContato()">Cancelar</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-listagem-contatos card" *ngIf="contatoList">
+      <div class="card-header">
+        <h4>Lista de Contatos</h4>
+      </div>
+      <div class="card-body">
+        <table *ngFor="let contato of contatoList" class="table table-bordered">
+          <tr>
+            <th>Nome</th>
+            <th>cpf</th>
+            <th>Data de Nascimento</th>
+            <th>Açoes</th>
+          </tr>
+
+          <tr>
+            <td>{{contato.nome}}</td>
+            <td>{{contato.telefone}}</td>
+            <td>{{contato.email}}</td>
+            <td>
+              <button class="btn btn-danger" title="excluir" (click)="deletarContato(contato)">X</button>
+            </td>
+          </tr>
+        </table>
+        <button class="btn btn-danger" title="excluir" (click)="fecharContatos()">Fechar</button>
+      </div>
+    </div>
+
+
+    <div class="table-listagem-pessoas card">
+      <div class="card-header">
+        <h4>Lista de pessoa</h4>
+      </div>
+
+      <div class="card-body">
+        <table *ngFor="let pessoa of pessoas" class="table table-bordered">
+          <tr>
+            <th>#id</th>
+            <th>Nome</th>
+            <th>cpf</th>
+            <th>Data de Nascimento</th>
+            <th>Açoes</th>
+          </tr>
+
+          <tr>
+            <td>{{pessoa.id}}</td>
+            <td>{{pessoa.nome}}</td>
+            <td>{{pessoa.cpf}}</td>
+            <td>{{pessoa.dataNascimento}}</td>
+            <td>
+              <button *ngIf="pessoa.contatos.length > 0" class="btn btn-info" title="ver contatos"
+                      (click)="mostrarContatos(pessoa.contatos)">
+                <i-bs
+                  name="list"
+                  class="text-info">
+                </i-bs>
+              </button>
+              <button type="button" class="btn btn-default"
+                      (click)="editarPessoa(pessoa)">
+                <i-bs
+                  name="pencil-square"
+                  class="text-primary"
+                  width="2rem"
+                  height="2rem">
+                </i-bs>
+              </button>
+              <button class="btn btn-danger" title="excluir" (click)="deletarPessoa(pessoa)">X</button>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
