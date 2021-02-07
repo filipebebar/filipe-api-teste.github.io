@@ -20,7 +20,10 @@
                        id="nome"
                        class="form-control"
                        [maxLength]="50"
-                       [(ngModel)]="pessoa.nome"/>
+                       [(ngModel)]="pessoa.nome"
+                       placeholder="Digite nome.."
+                       [ngClass]="{
+                'alert-danger':!pessoa.nome}"/>
               </div>
               <div>
                 <label>CPF</label>
@@ -32,7 +35,10 @@
                        mask="000.000.000-00"
                        minlength="14"
                        maxlength="14"
-                       [(ngModel)]="pessoa.cpf"/>
+                       [(ngModel)]="pessoa.cpf"
+                       placeholder="Digite cpf.."
+                       [ngClass]="{
+                'alert-danger':!pessoa.cpf}"/>
               </div>
               <div>
                 <label>Data de Nascimento</label>
@@ -43,7 +49,9 @@
                   id="dataNascimento"
                   class="form-control"
                   [(ngModel)]="pessoa.dataNascimento"
-                  [maxLength]="10"/>
+                  [maxLength]="10"
+                  [ngClass]="{
+                'alert-danger':!pessoa.cpf}"/>
               </div>
               <div class="row" style="margin-top: 5%">
                 <div class="btn-group btn col-form-label-sm">
@@ -57,7 +65,10 @@
 
             </div>
             <div class="btn-group btn">
-              <button type="button" class="btn btn-primary" (click)="salvar()" [disabled]="!contatoList">Salvar</button>
+              <button type="button" class="btn btn-primary"
+                      (click)="salvar()"
+                      [disabled]="!contatoList">Salvar
+              </button>
             </div>
           </form>
 
@@ -77,7 +88,11 @@
                        id="contato_nome"
                        class="form-control"
                        [maxLength]="50"
-                       [(ngModel)]="contato.nome"/>
+                       [(ngModel)]="contato.nome"
+                       placeholder="Digite o nome.."
+                       [ngClass]="{
+                'alert-danger': !contato.nome
+                }"/>
               </div>
               <div>
                 <label>Telefone</label>
@@ -88,7 +103,11 @@
                        class="form-control"
                        mask="(00) 0000-00009"
                        [maxLength]="14"
-                       [(ngModel)]="contato.telefone"/>
+                       [(ngModel)]="contato.telefone"
+                       placeholder="Digite telefone.."
+                       [ngClass]="{
+                'alert-danger': !contato.telefone
+                       }"/>
               </div>
               <div>
                 <label>Email</label>
@@ -100,7 +119,11 @@
                   class="form-control"
                   [(ngModel)]="contato.email"
                   [maxLength]="50"
-                  (ngModelChange)="validateEmail(contato.email)"/>
+                  (ngModelChange)="validateEmail(contato.email)"
+                  placeholder="Digite email.."
+                  [ngClass]="{
+                'alert-danger': !contato.email
+                       }"/>
               </div>
               <div class="btn-group btn">
                 <button type="button" class="btn btn-primary" (click)="salvarContato()">Add</button>
@@ -114,7 +137,7 @@
       </div>
     </div>
 
-    <div class="table-listagem-contatos card" *ngIf="contatoList">
+    <div class="table-listagem-contatos card" *ngIf="contatoList != 0 && contatoList">
       <div class="card-header">
         <h4>Lista de Contatos</h4>
       </div>

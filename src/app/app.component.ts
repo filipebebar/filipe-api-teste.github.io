@@ -3,8 +3,6 @@ import {ApiBackendService} from './service/api-backend.service';
 import {NotifierService} from 'angular-notifier';
 import {Pessoa} from './service/pessoa';
 import {Contato} from './service/contato';
-import {Validators} from '@angular/forms';
-import * as $ from 'jquery';
 
 declare var jQuery: any;
 
@@ -46,22 +44,29 @@ export class AppComponent implements OnInit {
 
   // tslint:disable-next-line:typedef
   salvar() {
-    if (!this.pessoa.id) {
-      this.pessoa.contatos = this.contatoList;
-      this.pessoaService.save(this.pessoa).subscribe(pessoa => {
-        this.listarPessoas();
-      }, error => {
-        console.log('Erro ao cadastrar');
-      });
+    if (this.pessoa && this.contatoList) {
+      if (!this.pessoa.id) {
+        this.pessoa.contatos = this.contatoList;
+        this.pessoaService.save(this.pessoa).subscribe(pessoa => {
+          this.listarPessoas(),
+            this.pessoa.nome = '',
+            this.pessoa.cpf = '',
+            this.pessoa.dataNascimento = '',
+            this.contatoList = null;
+        }, error => {
+          console.log('Erro ao cadastrar');
+        });
+      } else {
+        this.pessoa.contatos = this.contatoList;
+        this.pessoaService.atualizar(this.pessoa).subscribe(pessoa => {
+          this.listarPessoas();
+        }, error => {
+          console.log('Erro ao Atualizar');
+        });
+      }
     } else {
-      this.pessoa.contatos = this.contatoList;
-      this.pessoaService.atualizar(this.pessoa).subscribe(pessoa => {
-        this.listarPessoas();
-      }, error => {
-        console.log('Erro ao Atualizar');
-      });
-    }
 
+    }
   }
 
   // tslint:disable-next-line:typedef
@@ -72,7 +77,18 @@ export class AppComponent implements OnInit {
   // tslint:disable-next-line:typedef
   salvarContato() {
     this.contatoList = new Array();
-    this.contatoList.push(this.contato);
+    if (this.contato.nome
+      && this.contato.telefone
+      && this.contato.email) {
+      this.contatoList.push(this.contato).next(
+        this.contato.nome = '',
+        this.contato.telefone = '',
+        this.contato.email = ''
+      );
+    } else {
+      return false;
+    }
+
   }
 
   // tslint:disable-next-line:typedef
