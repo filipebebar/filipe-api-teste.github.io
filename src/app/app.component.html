@@ -120,14 +120,14 @@
       </div>
       <div class="card-body">
         <table *ngFor="let contato of contatoList" class="table table-bordered">
-          <tr>
+          <tr class="text-center">
             <th>Nome</th>
             <th>Telefone</th>
             <th>Email</th>
             <th>Açoes</th>
           </tr>
 
-          <tr>
+          <tr class="text-center">
             <td>{{contato.nome}}</td>
             <td>{{contato.telefone}}</td>
             <td>{{contato.email}}</td>
@@ -148,28 +148,32 @@
 
       <div class="card-body">
         <table *ngFor="let pessoa of pessoas" class="table table-bordered">
-          <tr>
-            <th>#id</th>
+          <tr class="text-center">
+            <th>#</th>
             <th>Nome</th>
             <th>cpf</th>
             <th>Data de Nascimento</th>
             <th>Açoes</th>
           </tr>
 
-          <tr>
+          <tr class="text-center">
             <td>{{pessoa.id}}</td>
             <td>{{pessoa.nome}}</td>
             <td>{{pessoa.cpf}}</td>
-            <td>{{pessoa.dataNascimento}}</td>
+            <td>{{pessoa.dataNascimento | date: 'dd/MM/yyyy'}}</td>
             <td>
-              <button *ngIf="pessoa.contatos.length > 0" class="btn btn-info" title="ver contatos"
+              <button *ngIf="pessoa.contatos.length > 0"
+                      class="btn btn-info"
+                      title="Ver Contatos"
                       (click)="mostrarContatos(pessoa.contatos)">
                 <i-bs
-                  name="list"
-                  class="text-info">
+                  name="view-stacked"
+                  class="text-secondary">
                 </i-bs>
               </button>
-              <button type="button" class="btn btn-default"
+              <button type="button"
+                      class="btn btn-default"
+                      title="Editar"
                       (click)="editarPessoa(pessoa)">
                 <i-bs
                   name="pencil-square"
