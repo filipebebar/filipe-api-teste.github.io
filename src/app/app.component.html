@@ -21,7 +21,7 @@
                        class="form-control"
                        [maxLength]="50"
                        [(ngModel)]="pessoa.nome"
-                       placeholder="Digite nome.."
+                       placeholder="Digite nome..."
                        [ngClass]="{
                 'alert-danger':!pessoa.nome}"/>
               </div>
@@ -36,7 +36,7 @@
                        minlength="14"
                        maxlength="14"
                        [(ngModel)]="pessoa.cpf"
-                       placeholder="Digite cpf.."
+                       placeholder="Digite cpf..."
                        [ngClass]="{
                 'alert-danger':!pessoa.cpf}"/>
               </div>
@@ -89,7 +89,7 @@
                        class="form-control"
                        [maxLength]="50"
                        [(ngModel)]="contato.nome"
-                       placeholder="Digite o nome.."
+                       placeholder="Digite o nome..."
                        [ngClass]="{
                 'alert-danger': !contato.nome
                 }"/>
@@ -104,7 +104,7 @@
                        mask="(00) 0000-00009"
                        [maxLength]="14"
                        [(ngModel)]="contato.telefone"
-                       placeholder="Digite telefone.."
+                       placeholder="Digite telefone..."
                        [ngClass]="{
                 'alert-danger': !contato.telefone
                        }"/>
@@ -120,7 +120,7 @@
                   [(ngModel)]="contato.email"
                   [maxLength]="50"
                   (ngModelChange)="validateEmail(contato.email)"
-                  placeholder="Digite email.."
+                  placeholder="Digite email..."
                   [ngClass]="{
                 'alert-danger': !contato.email
                        }"/>
